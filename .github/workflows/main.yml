@@ -29,6 +29,8 @@ jobs:
         wget -q -O /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
         unzip -q /tmp/chromedriver_linux64.zip -d /usr/local/bin/
         chmod +x /usr/local/bin/chromedriver
+        
+        
 
     - name: Run Selenium tests
       run: |
