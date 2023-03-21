@@ -3,8 +3,11 @@ name: My workflow
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '* */10 * * *'
-
+    - cron: '* */5 * * *'
+    
+  pull_request:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
