@@ -1,9 +1,6 @@
 name: run new
 
-# Controls when the action will run. 
-on:
-  schedule:
-    - cron: '*/30 * * * *'
+
 jobs:
   build:
     runs-on: ubuntu-latest
