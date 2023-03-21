@@ -23,11 +23,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt # 这里的 requirements.txt 是指定的 Python 依赖文件，需要放在代码仓库的根目录下
 
-    - name: Download and install ChromeDriver
+    - name: Install ChromeDriver
       run: |
         CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
-        wget -q -O - "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip" | unzip -xvf - -C /usr/local/bin/
-        chmod +x /usr/local/bin/chromedriver # 下载和安装 ChromeDriver
+        wget -q -O /tmp/chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip"
+        unzip -q /tmp/chromedriver_linux64.zip -d /usr/local/bin/
+        chmod +x /usr/local/bin/chromedriver
 
     - name: Run Selenium tests
       run: |
