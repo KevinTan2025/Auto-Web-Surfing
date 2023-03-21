@@ -1,9 +1,9 @@
-name: run01
+name: run 1
 
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/11 * * * *'
     
 jobs:
   build:
