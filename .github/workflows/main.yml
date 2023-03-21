@@ -9,9 +9,6 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
 
-- name: Set up permissions
-  run: sudo chown -R $USER:$USER /home/runner/
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -27,6 +24,9 @@ jobs:
         pip install selenium
         apt-get update
         apt-get install -y chromium-chromedriver
+
+- name: Set up permissions
+  run: sudo chown -R $USER:$USER /home/runner/
 
     - name: Run script
       run: python run-sitemap.py
