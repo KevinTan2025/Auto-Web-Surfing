@@ -3,7 +3,7 @@ name: My workflow
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '* */5 * * *'
+    - cron: '*/30 * * * *'
     
   pull_request:
     branches:
