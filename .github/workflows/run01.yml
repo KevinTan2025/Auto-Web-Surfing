@@ -1,9 +1,7 @@
 name: run01
 
 # Controls when the action will run. 
-on:
-  schedule:
-    - cron: '*/15 * * * *'
+on: [push]
     
 jobs:
   build:
