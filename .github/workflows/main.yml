@@ -1,8 +1,5 @@
 name: Website Visitor
 
-on:
-  schedule:
-    - cron: '0 * * * *'  # Run the job every hour
 jobs:
   visit_website:
     runs-on: ubuntu-latest
