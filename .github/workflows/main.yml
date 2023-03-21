@@ -1,32 +1,28 @@
-name: Python Script
+name: run-sitemap
 
-on:
-  push:
-    branches:
-      - main
+on: [push] # 触发条件，当代码 push 到指定分支时触发
 
 jobs:
-  run-script:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest # 运行环境
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2 # 从 GitHub 拉取代码
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
-    - name: Install dependencies
+    - name: Install Python and dependencies
       run: |
-        pip install requests
-        pip install selenium
-        apt-get update
-        apt-get install -y chromium-chromedriver
+        sudo apt-get update
+        sudo apt-get install python3-pip -y
+        sudo pip3 install -r requirements.txt # 安装依赖
 
-- name: Set up permissions
-  run: sudo chown -R $USER:$USER /home/runner/
+    - name: Download and install ChromeDriver
+      run: |
+        wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver # 下载和安装 ChromeDriver
 
-    - name: Run script
-      run: python run-sitemap.py
+    - name: Run Python script
+      run: |
+        python3 run-sitemap.py # 运行 Python 脚本
