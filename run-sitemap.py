@@ -1,4 +1,16 @@
 from selenium import webdriver
+
+# set up Chrome driver
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(options=options)
+
+# rest of your test code goes here
+
+
+from selenium import webdriver
 import random
 import time
 import requests
