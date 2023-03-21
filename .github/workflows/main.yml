@@ -22,6 +22,15 @@ jobs:
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver # 下载和安装 ChromeDriver
+        
+    - name: Install Selenium
+    run: |
+      sudo apt-get update
+      sudo apt-get install -yqq unzip
+      wget -O /tmp/selenium.zip https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+      sudo mkdir -p /opt/selenium
+      sudo unzip /tmp/selenium.zip -d /opt/selenium
+      sudo chmod 777 /opt/selenium
 
     - name: Run Python script
       run: |
