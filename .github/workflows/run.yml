@@ -1,9 +1,9 @@
-name: My workflow
+name: run new
 
-    
-  pull_request:
-    branches:
-      - main
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '*/30 * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
