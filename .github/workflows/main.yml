@@ -1,37 +1,34 @@
-name: run-sitemap
+name: Selenium Test
 
-on: [push] # 触发条件，当代码 push 到指定分支时触发
+on:
+  push:
+    branches:
+      - main # 这里可以指定要触发的分支
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest # 运行环境
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2 # 从 GitHub 拉取代码
 
-    - name: Install Python and dependencies
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install python3-pip -y
-        sudo pip3 install -r requirements.txt # 安装依赖
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt # 这里的 requirements.txt 是指定的 Python 依赖文件，需要放在代码仓库的根目录下
 
     - name: Download and install ChromeDriver
       run: |
-        wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver # 下载和安装 ChromeDriver
-        
-    - name: Install Selenium
-    run: |
-      sudo apt-get update
-      sudo apt-get install -yqq unzip
-      wget -O /tmp/selenium.zip https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
-      sudo mkdir -p /opt/selenium
-      sudo unzip /tmp/selenium.zip -d /opt/selenium
-      sudo chmod 777 /opt/selenium
+        CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+        wget -q -O - "https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip" | bsdtar -xvf - -C /usr/local/bin/
+        chmod +x /usr/local/bin/chromedriver # 下载和安装 ChromeDriver
 
-    - name: Run Python script
+    - name: Run Selenium tests
       run: |
-        python3 run-sitemap.py # 运行 Python 脚本
+        python run-sitemap.py # 这里的 test.py 是要执行的测试脚本，需要放在代码仓库的根目录下
