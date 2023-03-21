@@ -1,6 +1,9 @@
 name: My workflow
 
-on: [push]
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '* */5 * * *'
 
 jobs:
   build:
