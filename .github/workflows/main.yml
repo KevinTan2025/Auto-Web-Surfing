@@ -1,16 +1,18 @@
-- name: Install Python and dependencies
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y unzip
-    sudo apt-get install -y libglib2.0-0 libnss3 libgconf-2-4 libfontconfig1
-    sudo apt-get install python3-pip -y
-    sudo pip3 install -r requirements.txt # 安装依赖
-- name: Install ChromeDriver
-  run: |
-    wget https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-    unzip chromedriver_linux64.zip
-    sudo mv chromedriver /usr/local/bin/
-    sudo chmod +x /usr/local/bin/chromedriver
-- name: Run Selenium Script
-  run: |
-    python3 run-sitemap.py
+name: Website Visitor
+on:
+  schedule:
+    - cron: '0 * * * *'  # Run the job every hour
+jobs:
+  visit_website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
+        run: python run-sitemap.py
