@@ -1,0 +1,25 @@
+name: run 1
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '*/11 * * * *'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install required packages
+      run: pip install -r requirements.txt
+
+    - name: Run tests
+      run: xvfb-run python run-sitemap.py
